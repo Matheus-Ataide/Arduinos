@@ -1,0 +1,54 @@
+#define MD_ENA 3 //Definindo Enable do Motor Direito 
+#define MD_A 5 //Definindo IN1 do Motor Direito
+#define MD_B 7 //Definindo IN2 do Motor Direito
+
+#define ME_ENA 12 //Definindo Enable do Motor Esquerdo 
+#define ME_A 8 //Definindo IN1 do Motor Esquerdo 
+#define ME_B 10 //Definindo IN2 do Motor Esquerdo 
+
+#define S_D 2 //Definindo Sensor do Motor Direito
+#define S_E 13 //Definindo Sensor do Motor Esquerdo
+
+
+void setup() {
+  pinMode(MD_A, OUTPUT);
+  pinMode(MD_B, OUTPUT);
+  pinMode(ME_A, OUTPUT);
+  pinMode(ME_B, OUTPUT);
+ 
+  analogWrite(MD_ENA, 255);
+  analogWrite(ME_ENA, 255);
+
+  pinMode(S_D, INPUT);
+  pinMode(S_E, INPUT);
+}
+
+void loop() {
+  //Andar para Frente
+  if(digitalRead(S_D)==0 && digitalRead(S_E) == 0){
+    // Motor Direito para frente:
+    digitalWrite(MD_A, LOW);
+    digitalWrite(MD_B, HIGH);
+    // Motor Esquerdo para frente:
+    digitalWrite(ME_A, HIGH);
+    digitalWrite(ME_B, LOW);
+  }
+  //Andar para Frente-Direita
+  if(digitalRead(S_D) == 1 && digitalRead(S_E) == 0){
+    // Motor Direito Parado:
+    digitalWrite(MD_A, HIGH);
+    digitalWrite(MD_B, HIGH);
+    // Motor Esquerdo para frente:
+    digitalWrite(ME_A, HIGH);
+    digitalWrite(ME_B, LOW);
+  }
+  //Andar para Frente-Esquerda
+  if(digitalRead(S_E) == 1 && digitalRead(S_D) == 0){
+    // Motor Direito para frente:
+    digitalWrite(MD_A, LOW);
+    digitalWrite(MD_B, HIGH);
+    // Motor Esquerdo Parado:
+    digitalWrite(ME_A, HIGH);
+    digitalWrite(ME_B, HIGH);
+  }
+}
