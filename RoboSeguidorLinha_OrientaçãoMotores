@@ -1,0 +1,82 @@
+void setup() {
+  #define MD_ENA 3
+  #define MD_A 5
+  #define MD_B 7
+ 
+  #define ME_ENA 12
+  #define ME_A 8
+  #define ME_B 10
+}
+
+void loop() {
+//Andar para Frente
+  // Motor Direito para frente:
+  digitalWrite(MD_A, LOW);
+  digitalWrite(MD_B, HIGH);
+  // Motor Esquerdo para frente:
+  digitalWrite(ME_A, HIGH);
+  digitalWrite(ME_B, LOW);
+
+
+  delay(2000);
+  digitalWrite(MD_ENA, LOW);
+  digitalWrite(ME_ENA, LOW);
+
+  delay(2000);
+  digitalWrite(MD_ENA, HIGH);
+  digitalWrite(ME_ENA, HIGH);
+
+
+ 
+  //Andar para Trás
+  // Motor Direito para trás:
+  digitalWrite(MD_A, HIGH);
+  digitalWrite(MD_B, LOW);
+  // Motor Esquerdo para trás:
+  digitalWrite(ME_A, LOW);
+  digitalWrite(ME_B, HIGH);
+
+
+  delay(2000);
+  digitalWrite(MD_ENA, LOW);
+  digitalWrite(ME_ENA, LOW);
+
+  delay(2000);
+  digitalWrite(MD_ENA, HIGH);
+  digitalWrite(ME_ENA, HIGH);
+
+
+ 
+  //Andar para Frente-Esquerda
+  // Motor Direito para frente:
+  digitalWrite(MD_A, LOW);
+  digitalWrite(MD_B, HIGH);
+  // Motor Esquerdo Parado:
+  digitalWrite(ME_A, HIGH);
+  digitalWrite(ME_B, HIGH);
+
+
+  delay(2000);
+  digitalWrite(MD_ENA, LOW);
+  digitalWrite(ENA_E, LOW);
+  delay(2000);
+  digitalWrite(MD_ENA, HIGH);
+  digitalWrite(ME_ENA, HIGH);
+
+
+ 
+  //Andar para Frente-Direita
+  // Motor Direito Parado:
+  digitalWrite(MD_A, HIGH);
+  digitalWrite(MD_B, HIGH);
+  // Motor Esquerdo para frente:
+  digitalWrite(ME_A, HIGH);
+  digitalWrite(ME_B, LOW);
+
+  delay(2000);
+  digitalWrite(MD_ENA, LOW);
+  digitalWrite(ME_ENA, LOW);
+  delay(2000);
+  digitalWrite(MD_ENA, HIGH);
+  digitalWrite(ME_ENA, HIGH);
+}
