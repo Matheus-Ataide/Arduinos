@@ -1,0 +1,90 @@
+#define MD_ENA 7 //Definindo Enable do Motor Direito 
+#define MD_A 6 //Definindo IN1 do Motor Direito
+#define MD_B 5 //Definindo IN2 do Motor Direito
+
+#define ME_ENA 2 //Definindo Enable do Motor Esquerdo 
+#define ME_A 4 //Definindo IN1 do Motor Esquerdo 
+#define ME_B 3 //Definindo IN2 do Motor Esquerdo 
+
+#define S_D 13 //Definindo Sensor do Motor Direito
+#define S_E 8 //Definindo Sensor do Motor Esquerdo
+
+#define trig 10
+#define echo 12
+
+float tempo;
+float distancia;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(MD_A, OUTPUT);
+  pinMode(MD_B, OUTPUT);
+  pinMode(ME_A, OUTPUT);
+  pinMode(ME_B, OUTPUT);
+  pinMode(MD_ENA, OUTPUT);
+  pinMode(ME_ENA, OUTPUT);
+
+ 
+  analogWrite(MD_ENA, 255);
+  analogWrite(ME_ENA, 255);
+
+  pinMode(S_D, INPUT);
+  pinMode(S_E, INPUT);
+
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+
+  tempo = pulseIn(echo, HIGH);
+  distancia = tempo / 58;
+
+  Serial.print("Distancia: ");
+  Serial.print(distancia);
+  Serial.print(" cm");
+  Serial.println("");
+
+  //Andar para Frente
+  if(digitalRead(S_D)==1 && digitalRead(S_E) == 1 && distancia<10){
+      // Motor Direito para frente:
+      digitalWrite(MD_A, HIGH);
+      digitalWrite(MD_B, LOW);
+      // Motor Esquerdo para frente:
+      digitalWrite(ME_A, HIGH);
+      digitalWrite(ME_B, LOW);
+  }
+  if(digitalRead(S_D)==1 && digitalRead(S_E) == 1 && distancia>10){
+      // Motor Direito para frente:
+      digitalWrite(MD_A, HIGH);
+      digitalWrite(MD_B, HIGH);
+      // Motor Esquerdo para frente:
+      digitalWrite(ME_A, HIGH);
+      digitalWrite(ME_B, HIGH);
+  }
+  //Andar para Frente-Direita
+  if(digitalRead(S_D) == 1 && digitalRead(S_E) == 0 || digitalRead(S_E) == 1 && digitalRead(S_D) == 0 || digitalRead(S_D) == 0 && digitalRead(S_E) == 0){
+    // Motor Direito tras:
+    digitalWrite(MD_A, LOW);
+    digitalWrite(MD_B, HIGH);
+    // Motor Esquerdo para tras:
+    digitalWrite(ME_A, LOW);
+    digitalWrite(ME_B, HIGH);
+
+    delay(300);
+
+    // Motor Direito para frente:
+    digitalWrite(MD_A, HIGH);
+    digitalWrite(MD_B, LOW);
+    // Motor Esquerdo Parado:
+    digitalWrite(ME_A, LOW);
+    digitalWrite(ME_B, HIGH);
+
+    delay(700);
+  }
+}
